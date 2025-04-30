@@ -1,345 +1,67 @@
 import 'package:flutter/material.dart';
 
 class AppModel {
-  final String name, image, description, category;
-  final double reting;
-  final int review, price;
-  List<Color> fcolor;
-  List<String> size;
-  bool isCheck;
+  final String name, image, description, category, brandName;
+  final double rating;
+  final int reviewCount, price;
+  final List<Color> fcolor;
+  final List<String> size;
+  final bool isCheck;
 
   AppModel({
     required this.name,
     required this.image,
     required this.description,
     required this.category,
-    required this.reting,
-    required this.review,
+    required this.brandName,
+    required this.rating,
+    required this.reviewCount,
     required this.price,
     required this.fcolor,
     required this.size,
-    required this.isCheck, // Added isCheck to the constructor
+    required this.isCheck,
   });
 }
 
 List<AppModel> FashionEcommercesApp = [
-  //id1
   AppModel(
-    name: "T-shirt",
+    name: "Nike T-shirt",
     image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description: "Premium quality cotton t-shirt with Nike logo",
     category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
+    brandName: "Nike",
+    rating: 4.5,
+    reviewCount: 120,
+    price: 29,
+    isCheck: true,
+    fcolor: [Colors.black, Colors.white, Colors.red],
     size: ["S", "M", "L", "XL"],
   ),
-
-  //id2
   AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
+    name: "Adidas Hoodie",
+    image: "assets/Hoodie.png",
+    description: "Warm and comfortable hoodie for all seasons",
+    category: "Hoodies",
+    brandName: "Adidas",
+    rating: 4.7,
+    reviewCount: 85,
+    price: 59,
+    isCheck: false,
+    fcolor: [Colors.blue, Colors.black, Colors.grey],
+    size: ["M", "L", "XL"],
   ),
-
-  //id3
   AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
+    name: "Puma Running Shoes",
+    image: "assets/Shop.png",
+    description: "Lightweight running shoes with extra cushioning",
+    category: "Shoes",
+    brandName: "Puma",
+    rating: 4.8,
+    reviewCount: 210,
+    price: 89,
+    isCheck: true,
+    fcolor: [Colors.white, Colors.black, Colors.red],
+    size: ["7", "8", "9", "10"],
   ),
-
-  //id4
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id5
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id6
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id7
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id8
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id9
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id10
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id11
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id12
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id13
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id14
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
-
-  //id15
-  AppModel(
-    name: "T-shirt",
-    image: "assets/Tees.png",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    category: "Tees",
-    reting: 4.5,
-    review: 120,
-    price: 20,
-    isCheck: true, // No error now
-    fcolor: [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.purple,
-    ],
-    size: ["S", "M", "L", "XL"],
-  ),
+  // Add more items as needed...
 ];
-
-const myDescription1 =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-const myDescription2 =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
