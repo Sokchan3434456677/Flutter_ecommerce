@@ -1,54 +1,39 @@
-<<<<<<< HEAD
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:async';
 
-=======
-// import 'package:flutter/material.dart';
-// import 'package:flutter_application_a3/Utils/color.dart';
+class Banner {
+  final int id;
+  final String title;
+  final String description;
+  final String images;
+  final int userId;
+  final String createdAt;
+  final String updatedAt;
 
-// class MyBanner extends StatelessWidget {
-//   const MyBanner({super.key});
+  Banner({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.images,
+    required this.userId,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-//     return Container(
-//       height: size.height * 0.25,
-//       width: size.width,
-//       color: bannerColor,
-//       child: Padding(
-//         padding: const EdgeInsets.only(left: 25),
-//         child: Stack(
-//           children: [
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [],
-//             ),
-//             Align(
-//               alignment: Alignment.bottomRight,
-//               child: Image.asset(
-//                 "assets/banner.png",
-//                 height: size.height * 0.25,
-//                 width: size.width,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  factory Banner.fromJson(Map<String, dynamic> json) {
+    return Banner(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      images: json['images'],
+      userId: json['user_id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+    );
+  }
+}
 
-
-
-
-import 'package:flutter/material.dart';
-
->>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
 class MyBanner extends StatefulWidget {
   const MyBanner({super.key});
 
@@ -59,99 +44,53 @@ class MyBanner extends StatefulWidget {
 class _MyBannerState extends State<MyBanner> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-<<<<<<< HEAD
-  List<String> bannerImages = [];
+  List<Banner> banners = [];
   bool isLoading = true;
-  String errorMessage = '';
-  Timer? _autoScrollTimer;
-
-  final String apiUrl = "http://127.0.0.1:8000/api/banners";
-  final String token = "2|TuzjU7r606veBceqjHrd27GkBgc2oCbamD0RrUds122047b4";
-=======
-  final List<String> bannerImages = [
-    "assets/banner.png",
-    "assets/banner.png",
-    "assets/banner.png",
-  ];
->>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
 
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
     _fetchBanners();
+    _startAutoScroll();
   }
 
   Future<void> _fetchBanners() async {
     try {
       final response = await http.get(
-        Uri.parse(apiUrl),
+        Uri.parse('http://127.0.0.1:8000/api/banners'),
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization':
+              'Bearer 2|TuzjU7r606veBceqjHrd27GkBgc2oCbamD0RrUds122047b4',
           'Accept': 'application/json',
         },
       );
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        print('API Response: $data'); // Debug log
-        if (data['success'] == true) {
+        final jsonData = jsonDecode(response.body);
+        if (jsonData['success'] == true) {
           setState(() {
-            bannerImages = List<String>.from(
-              data['data'].map((banner) => banner['images'] as String),
-            );
-            isLoading = false;
-          });
-          print('Banner Images: $bannerImages'); // Debug log
-          if (bannerImages.isNotEmpty) {
-            _startAutoScroll();
-          }
-        } else {
-          setState(() {
-            errorMessage =
-                'Failed to load banners: ${data['message'] ?? 'Unknown error'}';
+            banners =
+                (jsonData['data'] as List)
+                    .map((item) => Banner.fromJson(item))
+                    .toList();
             isLoading = false;
           });
         }
       } else {
-        setState(() {
-          errorMessage = 'Failed to load banners: ${response.statusCode}';
-          isLoading = false;
-        });
+        throw Exception('Failed to load banners');
       }
     } catch (e) {
       setState(() {
-        errorMessage = 'Error fetching banners: $e';
         isLoading = false;
       });
+      print('Error fetching banners: $e');
     }
   }
 
   void _startAutoScroll() {
-    _autoScrollTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (!mounted) {
-        timer.cancel();
-        return;
-      }
-      if (_pageController.hasClients && bannerImages.isNotEmpty) {
-        if (_currentPage < bannerImages.length - 1) {
-          _currentPage++;
-        } else {
-          _currentPage = 0;
-        }
-        _pageController.animateToPage(
-          _currentPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-=======
-    _startAutoScroll();
-  }
-
-  void _startAutoScroll() {
     Future.delayed(const Duration(seconds: 3), () {
-      if (_pageController.hasClients) {
-        if (_currentPage < bannerImages.length - 1) {
+      if (_pageController.hasClients && banners.isNotEmpty) {
+        if (_currentPage < banners.length - 1) {
           _pageController.nextPage(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
@@ -164,17 +103,12 @@ class _MyBannerState extends State<MyBanner> {
           );
         }
         _startAutoScroll();
->>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
       }
     });
   }
 
   @override
   void dispose() {
-<<<<<<< HEAD
-    _autoScrollTimer?.cancel();
-=======
->>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
     _pageController.dispose();
     super.dispose();
   }
@@ -183,75 +117,45 @@ class _MyBannerState extends State<MyBanner> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.25,
-      child: Stack(
-        children: [
-          // Main banner with padding
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-<<<<<<< HEAD
-            child:
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : errorMessage.isNotEmpty
-                    ? Center(
-                      child: Text(
-                        errorMessage,
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                    : bannerImages.isEmpty
-                    ? const Center(child: Text('No banners available'))
-                    : PageView.builder(
+      child:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Stack(
+                children: [
+                  // Main banner with padding
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: PageView.builder(
                       controller: _pageController,
                       onPageChanged: (index) {
                         setState(() {
                           _currentPage = index;
                         });
                       },
-                      itemCount: bannerImages.length,
+                      itemCount: banners.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.network(
-                              bannerImages[index],
+                              banners[index].images,
                               fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                print(
-                                  'Error loading image: ${bannerImages[index]}',
-                                ); // Debug log
-                                print(
-                                  'Error details: $error',
-                                ); // Log the error details
-                                return const Center(
-                                  child: Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                    size: 40,
-                                  ),
-                                );
-                              },
                               loadingBuilder: (
                                 context,
                                 child,
                                 loadingProgress,
                               ) {
                                 if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value:
-                                        loadingProgress.expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey[300],
+                                  child: const Center(
+                                    child: Icon(Icons.error, color: Colors.red),
                                   ),
                                 );
                               },
@@ -260,85 +164,35 @@ class _MyBannerState extends State<MyBanner> {
                         );
                       },
                     ),
-          ),
+                  ),
 
-          // Page indicators - only show if we have banners
-          if (!isLoading && errorMessage.isEmpty && bannerImages.isNotEmpty)
-            Positioned(
-              bottom: 12,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  bannerImages.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: _currentPage == index ? 12 : 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          _currentPage == index
-                              ? Colors.white
-                              : Colors.white.withOpacity(0.5),
+                  // Page indicators
+                  Positioned(
+                    bottom: 12,
+                    left: 0,
+                    right: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        banners.length,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: _currentPage == index ? 12 : 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                _currentPage == index
+                                    ? Colors.white
+                                    : Colors.white.withOpacity(0.5),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ),
-=======
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
-              itemCount: bannerImages.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      bannerImages[index],
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-
-          // Page indicators
-          Positioned(
-            bottom: 12,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                bannerImages.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: _currentPage == index ? 12 : 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentPage == index
-                        ? Colors.white
-                        : Colors.white.withOpacity(0.5),
-                  ),
-                ),
-              ),
-            ),
-          ),
->>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
-        ],
-      ),
     );
   }
 }
