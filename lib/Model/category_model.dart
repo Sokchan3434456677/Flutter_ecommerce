@@ -14,9 +14,9 @@ class Facategory {
 
 // Original product categories
 List<Facategory> productCategories = [
-  Facategory(name: "Tees", image: "assets/Shop.png"),
-  Facategory(name: "Girl", image: "assets/Shop.png"),
-  Facategory(name: "Hoodie", image: "assets/Shop.png"),
-  Facategory(name: "Pants", image: "assets/Shop.png"),
-  Facategory(name: "Shop", image: "assets/Shop.png"),
+  Facategory(name: "New Arrivals", image: "assets/newarrival1.png"),
+  Facategory(name: "Tee", image: "assets/Tee1.png"),
+  Facategory(name: "Hoodie", image: "assets/Hoddie1.png"),
+  Facategory(name: "Outerwear", image: "assets/outwear1.png"),
+  Facategory(name: "Pants", image: "assets/pants1.png"),
 ];

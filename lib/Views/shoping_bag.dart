@@ -1,163 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class ShoppingBagPage extends StatelessWidget {
-//   final List<Map<String, dynamic>> cartItems;
-
-//   const ShoppingBagPage({super.key, required this.cartItems});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Shopping Bag'),
-//         centerTitle: true,
-//         actions: [IconButton(icon: const Icon(Icons.search), onPressed: () {})],
-//       ),
-//       body: Column(
-//         children: [
-//           Expanded(
-//             child: ListView.separated(
-//               padding: const EdgeInsets.all(16),
-//               itemCount: cartItems.length,
-//               separatorBuilder: (context, index) => const SizedBox(height: 16),
-//               itemBuilder:
-//                   (context, index) => _buildBagItem(context, cartItems[index]),
-//             ),
-//           ),
-//           _buildCheckoutSection(context),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildBagItem(BuildContext context, Map<String, dynamic> item) {
-//     return Row(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Container(
-//           width: 100,
-//           height: 120,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(8),
-//             color: Colors.grey.shade200,
-//             image: DecorationImage(
-//               image: NetworkImage(item['image']),
-//               fit: BoxFit.cover,
-//             ),
-//           ),
-//         ),
-//         const SizedBox(width: 16),
-//         Expanded(
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 item['name'],
-//                 style: Theme.of(context).textTheme.titleMedium,
-//               ),
-//               const SizedBox(height: 4),
-//               Text(
-//                 'Color: ${item['color']} | Size: ${item['size']}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 8),
-//               Text(
-//                 '\$${item['price']}',
-//                 style: Theme.of(
-//                   context,
-//                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-//               ),
-//               const SizedBox(height: 12),
-//               Row(
-//                 children: [
-//                   IconButton(
-//                     icon: const Icon(Icons.remove, size: 18),
-//                     onPressed: () {},
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.symmetric(horizontal: 12),
-//                     child: Text('${item['quantity']}'),
-//                   ),
-//                   IconButton(
-//                     icon: const Icon(Icons.add, size: 18),
-//                     onPressed: () {},
-//                   ),
-//                   const Spacer(),
-//                   IconButton(
-//                     icon: const Icon(Icons.delete_outline),
-//                     onPressed: () {},
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   Widget _buildCheckoutSection(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         border: Border(top: BorderSide(color: Colors.grey.shade200, width: 1)),
-//       ),
-//       child: Column(
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text('Subtotal', style: Theme.of(context).textTheme.bodyLarge),
-//               Text('\$299.97', style: Theme.of(context).textTheme.bodyLarge),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text('Shipping', style: Theme.of(context).textTheme.bodyLarge),
-//               Text('Free', style: Theme.of(context).textTheme.bodyLarge),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text(
-//                 'Total',
-//                 style: Theme.of(
-//                   context,
-//                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-//               ),
-//               Text(
-//                 '\$299.97',
-//                 style: Theme.of(
-//                   context,
-//                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//           SizedBox(
-//             width: double.infinity,
-//             child: ElevatedButton(
-//               onPressed: () {},
-//               style: ElevatedButton.styleFrom(
-//                 padding: const EdgeInsets.symmetric(vertical: 16),
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//               ),
-//               child: const Text('CHECKOUT'),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -283,9 +123,20 @@ class _ShoppingBagPageState extends State<ShoppingBagPage> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey.shade200,
-              image: DecorationImage(
-                image: AssetImage(item['image']),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                item['image'],
                 fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                errorBuilder:
+                    (context, error, stackTrace) => const Icon(
+                      Icons.image_not_supported,
+                      size: 50,
+                      color: Colors.grey,
+                    ),
               ),
             ),
           ),

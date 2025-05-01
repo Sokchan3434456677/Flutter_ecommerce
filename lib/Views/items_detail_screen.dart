@@ -93,19 +93,21 @@ class _ItemsDetailScreenState extends State<ItemsDetailScreen> {
                       currentIndex = value;
                     });
                   },
-                  itemCount: 3,
+                  itemCount: 3, // You might want to make this dynamic
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Image.asset(
-                          widget.eCommerceApp.image,
-                          width: size.width * 0.85,
-                          height: size.height * 0.4,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                    return Center(
+                      child: Image.network(
+                        widget.eCommerceApp.image,
+                        width: size.width * 0.85,
+                        height: size.height * 0.4,
+                        fit: BoxFit.contain,
+                        errorBuilder:
+                            (context, error, stackTrace) => const Icon(
+                              Icons.image_not_supported,
+                              size: 100,
+                            ),
+                      ),
                     );
                   },
                 ),
@@ -193,7 +195,7 @@ class _ItemsDetailScreenState extends State<ItemsDetailScreen> {
                     const Icon(Icons.star, color: Colors.amber, size: 20),
                     const SizedBox(width: 5),
                     Text(
-                      widget.eCommerceApp.rating.toString(),
+                      widget.eCommerceApp.rating.toStringAsFixed(1),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -219,7 +221,7 @@ class _ItemsDetailScreenState extends State<ItemsDetailScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "This is a detailed description of the product. It includes information about materials, features, and benefits. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                  widget.eCommerceApp.description,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey.shade700,
