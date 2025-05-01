@@ -1,5 +1,63 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_application_a3/Views/app_home_screen.dart';
+// import 'package:iconsax/iconsax.dart';
+
+// class AppMainScreen extends StatefulWidget {
+//   const AppMainScreen({super.key});
+
+//   @override
+//   State<AppMainScreen> createState() => _AppMainScreenState();
+// }
+
+// class _AppMainScreenState extends State<AppMainScreen> {
+//   int selectedIndex = 0;
+//   final List pages = [
+//     const AppHomeScreen(),
+//     const Scaffold(),
+//     const Scaffold(),
+//     const Scaffold(),
+//   ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       bottomNavigationBar: BottomNavigationBar(
+//         unselectedItemColor: Colors.black38,
+//         selectedItemColor: Colors.black,
+//         type: BottomNavigationBarType.fixed,
+//         currentIndex: selectedIndex,
+//         onTap: (value) {
+//           setState(() {});
+//           selectedIndex = value;
+//         },
+
+//         elevation: 0,
+//         backgroundColor: Colors.white,
+//         items: [
+//           BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Home'),
+//           BottomNavigationBarItem(
+//             icon: Icon(Iconsax.search_normal),
+//             label: 'Search',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Iconsax.notification),
+//             label: 'Notification',
+//           ),
+//           BottomNavigationBarItem(icon: Icon(Iconsax.user), label: 'Profile'),
+//         ],
+//       ),
+//       body: pages[selectedIndex],
+//     );
+//   }
+// }
+
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_a3/Views/app_home_screen.dart';
+import 'package:flutter_application_a3/Search/search.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AppMainScreen extends StatefulWidget {
@@ -11,12 +69,13 @@ class AppMainScreen extends StatefulWidget {
 
 class _AppMainScreenState extends State<AppMainScreen> {
   int selectedIndex = 0;
-  final List pages = [
+  final List<Widget> pages = [
     const AppHomeScreen(),
-    const Scaffold(),
+    const Placeholder(), // Will be replaced when search is tapped
     const Scaffold(),
     const Scaffold(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +86,21 @@ class _AppMainScreenState extends State<AppMainScreen> {
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: (value) {
-          setState(() {});
-          selectedIndex = value;
+          if (value == 1) {
+            // Open search page when search icon is tapped
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SearchPage()),
+            );
+          } else {
+            setState(() {
+              selectedIndex = value;
+            });
+          }
         },
-
         elevation: 0,
         backgroundColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Home'),
           BottomNavigationBarItem(
             icon: Icon(Iconsax.search_normal),
