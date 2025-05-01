@@ -1,8 +1,54 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
+=======
+// import 'package:flutter/material.dart';
+// import 'package:flutter_application_a3/Utils/color.dart';
+
+// class MyBanner extends StatelessWidget {
+//   const MyBanner({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Size size = MediaQuery.of(context).size;
+//     return Container(
+//       height: size.height * 0.25,
+//       width: size.width,
+//       color: bannerColor,
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 25),
+//         child: Stack(
+//           children: [
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [],
+//             ),
+//             Align(
+//               alignment: Alignment.bottomRight,
+//               child: Image.asset(
+//                 "assets/banner.png",
+//                 height: size.height * 0.25,
+//                 width: size.width,
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+
+
+import 'package:flutter/material.dart';
+
+>>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
 class MyBanner extends StatefulWidget {
   const MyBanner({super.key});
 
@@ -13,6 +59,7 @@ class MyBanner extends StatefulWidget {
 class _MyBannerState extends State<MyBanner> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+<<<<<<< HEAD
   List<String> bannerImages = [];
   bool isLoading = true;
   String errorMessage = '';
@@ -20,10 +67,18 @@ class _MyBannerState extends State<MyBanner> {
 
   final String apiUrl = "http://127.0.0.1:8000/api/banners";
   final String token = "2|TuzjU7r606veBceqjHrd27GkBgc2oCbamD0RrUds122047b4";
+=======
+  final List<String> bannerImages = [
+    "assets/banner.png",
+    "assets/banner.png",
+    "assets/banner.png",
+  ];
+>>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
 
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     _fetchBanners();
   }
 
@@ -89,13 +144,37 @@ class _MyBannerState extends State<MyBanner> {
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
+=======
+    _startAutoScroll();
+  }
+
+  void _startAutoScroll() {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (_pageController.hasClients) {
+        if (_currentPage < bannerImages.length - 1) {
+          _pageController.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        } else {
+          _pageController.animateToPage(
+            0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        }
+        _startAutoScroll();
+>>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
       }
     });
   }
 
   @override
   void dispose() {
+<<<<<<< HEAD
     _autoScrollTimer?.cancel();
+=======
+>>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
     _pageController.dispose();
     super.dispose();
   }
@@ -109,6 +188,7 @@ class _MyBannerState extends State<MyBanner> {
           // Main banner with padding
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
+<<<<<<< HEAD
             child:
                 isLoading
                     ? const Center(child: CircularProgressIndicator())
@@ -208,6 +288,55 @@ class _MyBannerState extends State<MyBanner> {
                 ),
               ),
             ),
+=======
+            child: PageView.builder(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemCount: bannerImages.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      bannerImages[index],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // Page indicators
+          Positioned(
+            bottom: 12,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                bannerImages.length,
+                (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: _currentPage == index ? 12 : 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentPage == index
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.5),
+                  ),
+                ),
+              ),
+            ),
+          ),
+>>>>>>> d32ec3ac76449561ff4f9da0eb115d83d887a536
         ],
       ),
     );
